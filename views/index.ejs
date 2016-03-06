@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#show-data').click(function () {
+                $.getJSON('/data', function (data) {
+                    $('#data').empty();
+                    var items = data.employees.map(function (item) {
+                        $('#data').append('<div>FirstName: '+ item.firstName + '<div>   LastName:' + item.lastName+  '</div>'+'<div>     Employee id: '+item.eid+'</div>'+'</div>');
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Welcome to <%= title %></h1>
+<button id="show-data">Get JSON data</button>
+<div id="data"></div>
+</body>
+</html>
