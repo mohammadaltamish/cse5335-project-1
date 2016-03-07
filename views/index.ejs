@@ -4,15 +4,28 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script>
         $(document).ready(function () {
             $('#show-data').click(function () {
+
                 $.getJSON('/data', function (data) {
-                    $('#data').empty();
+                    $('#firstName, #lastName, #eid').empty();
+                    $('#eid').append('<div>'+ "Employee ID" +'</div>');
+                    $('#firstName').append('<div> '+ "First Name" + '</div>');
+                    $('#lastName').append('<div> '+ "Last Name" + '</div>');
+                    $('#lat').append('<div> '+ "Latitude" + '</div>');
+                    $('#lng').append('<div> '+ "Longitude" + '</div>');
                     var items = data.employees.map(function (item) {
-                        $('#data').append('<div>FirstName: '+ item.firstName + '<div>   LastName:' + item.lastName+  '</div>'+'<div>     Employee id: '+item.eid+'</div>'+'</div>');
+                        $('#eid').append('<div> '+ item.eid + '</div>');
+                        $('#firstName').append('<div> '+ item.firstName + '</div>');
+                        $('#lastName').append('<div> '+ item.lastName + '</div>');
+                        $('#lat').append('<div> '+ item.lat + '</div>');
+                        $('#lng').append('<div> '+ item.lng + '</div>');
+                       
                     });
                 });
+                $('#map').show();
             });
         });
     </script>
@@ -20,6 +33,30 @@
 <body>
 <h1>Welcome to <%= title %></h1>
 <button id="show-data">Get JSON data</button>
-<div id="data"></div>
+<div class="data">
+    <div class="col">
+        <div id="eid"></div>
+    </div>
+    <div class="col">
+        <div id="firstName"></div>
+    </div>
+    <div class="col">
+        <div id="lastName"></div>
+    </div>
+    <div class="col">
+        <div id="lat"></div>
+    </div>
+    <div class="col">
+        <div id="lng"></div>
+    </div>
+
+</div>
+<iframe id = "map",
+        width=100%
+        height="450"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAHg4N0JCgoKFksLbiTSHi_43vORfpEm6U
+    &q=32.732345,-97.110154" allowfullscreen>
+</iframe>
 </body>
 </html>

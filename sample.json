@@ -1,12 +1,12 @@
 {"employees":[
-  {"firstName":"John", "lastName":"Doe", "eid":"1"},
-  {"firstName":"Anna", "lastName":"Smith", "eid":"2"},
-  {"firstName":"Mohammad", "lastName":"Altamish", "eid":"3"},
-  {"firstName":"Joe", "lastName":"Swanson", "eid":"4"},
-  {"firstName":"Dick", "lastName":"Carter", "eid":"5"},
-  {"firstName":"Michael", "lastName":"Jordan", "eid":"6"},
-  {"firstName":"Matt", "lastName":"Damon", "eid":"7"},
-  {"firstName":"Ben", "lastName":"Affleck", "eid":"8"},
-  {"firstName":"Peter", "lastName":"Griffin", "eid":"9"},
-  {"firstName":"Taylor", "lastName":"Swift", "eid":"10"}
+  {"firstName":"John", "lastName":"Doe", "eid":"1", "lat":"41.8339042", "lng":"-88.0123483"},
+  {"firstName":"Anna", "lastName":"Smith", "eid":"2", "lat":"36.1252285", "lng":"-115.4551963"},
+  {"firstName":"Mohammad", "lastName":"Altamish", "eid":"3", "lat":"32.7020541", "lng":"-97.2755004"},
+  {"firstName":"Joe", "lastName":"Swanson", "eid":"4", "lat":"28.4813989", "lng":"-81.5088378"},
+  {"firstName":"Dick", "lastName":"Carter", "eid":"5", "lat":"38.8995323", "lng":"-77.154653"},
+  {"firstName":"Michael", "lastName":"Jordan", "eid":"6", "lat":"40.7058316", "lng":"-74.2581971"},
+  {"firstName":"Matt", "lastName":"Damon", "eid":"7", "lat":"42.3135421", "lng":"-71.1972431"},
+  {"firstName":"Ben", "lastName":"Affleck", "eid":"8", "lat":"34.0207504", "lng":"-118.6919299"},
+  {"firstName":"Peter", "lastName":"Griffin", "eid":"9", "lat":"41.8774575", "lng":"-71.4130945"},
+  {"firstName":"Taylor", "lastName":"Swift", "eid":"10", "lat":"43.6009692", "lng":"-116.3739838"}
 ]}

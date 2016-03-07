@@ -6,6 +6,23 @@ body {
 a {
   color: #00B7FF;
 }
-div {
-  border-style: groove;
+
+#map{
+  display: none;
+}
+.data{
+  display:table;
+  width:auto;
+  background-color:#eee;
+  border:1px solid  #666666;
+}
+.col > div{
+  display:table-row;
+  clear:both;
+}
+.col{
+  float:left;
+  display:table-column;
+  width:150px;
+  border:1px solid #666666;
 }
