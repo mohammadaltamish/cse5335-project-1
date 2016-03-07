@@ -10,12 +10,14 @@
             $('#show-data').click(function () {
 
                 $.getJSON('/data', function (data) {
-                    $('#firstName, #lastName, #eid', '#lat','#lng').empty();
+                    $('#firstName, #lastName, #eid, #lat, #lng').empty();
+                    
                     $('#eid').append('<div>'+ "Employee ID" +'</div>');
                     $('#firstName').append('<div> '+ "First Name" + '</div>');
                     $('#lastName').append('<div> '+ "Last Name" + '</div>');
                     $('#lat').append('<div> '+ "Latitude" + '</div>');
                     $('#lng').append('<div> '+ "Longitude" + '</div>');
+
                     var items = data.employees.map(function (item) {
                         $('#eid').append('<div> '+ item.eid + '</div>');
                         $('#firstName').append('<div> '+ item.firstName + '</div>');
