@@ -6,12 +6,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script>
+        var latArr =[];
+        var longArr = [];
+        var index =0;
+
         $(document).ready(function () {
             $('#show-data').click(function () {
-
                 $.getJSON('/data', function (data) {
                     $('#firstName, #lastName, #eid, #lat, #lng').empty();
-                    
+
                     $('#eid').append('<div>'+ "Employee ID" +'</div>');
                     $('#firstName').append('<div> '+ "First Name" + '</div>');
                     $('#lastName').append('<div> '+ "Last Name" + '</div>');
@@ -24,12 +27,31 @@
                         $('#lastName').append('<div> '+ item.lastName + '</div>');
                         $('#lat').append('<div> '+ item.lat + '</div>');
                         $('#lng').append('<div> '+ item.lng + '</div>');
-
+                        latArr[index] = item.lat;
+                        longArr[index] = item.lng;
+                        index = index + 1;
                     });
+                    map();
                 });
-                $('#map').show();
             });
         });
+
+    function map() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: new google.maps.LatLng(latArr[4], longArr[4])
+        });
+
+        var marker, i;
+
+        for (i = 0; i < latArr.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(latArr[i], longArr[i]),
+                map: map
+            });
+        }
+    }
+
     </script>
 </head>
 <body>
@@ -53,12 +75,8 @@
     </div>
 
 </div>
-<iframe id = "map",
-        width=100%
-        height="450"
-        frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAHg4N0JCgoKFksLbiTSHi_43vORfpEm6U
-    &q=32.732345,-97.110154" allowfullscreen>
-</iframe>
+<div id="mapContainer">
+    <div id="map"></div>
+</div>
 </body>
 </html>
