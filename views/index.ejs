@@ -10,7 +10,7 @@
             $('#show-data').click(function () {
 
                 $.getJSON('/data', function (data) {
-                    $('#firstName, #lastName, #eid').empty();
+                    $('#firstName, #lastName, #eid', '#lat','#lng').empty();
                     $('#eid').append('<div>'+ "Employee ID" +'</div>');
                     $('#firstName').append('<div> '+ "First Name" + '</div>');
                     $('#lastName').append('<div> '+ "Last Name" + '</div>');
@@ -22,7 +22,7 @@
                         $('#lastName').append('<div> '+ item.lastName + '</div>');
                         $('#lat').append('<div> '+ item.lat + '</div>');
                         $('#lng').append('<div> '+ item.lng + '</div>');
-                       
+
                     });
                 });
                 $('#map').show();
