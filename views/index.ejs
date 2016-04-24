@@ -2,81 +2,191 @@
 <html>
 <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script>
-        var latArr =[];
-        var longArr = [];
-        var index =0;
 
-        $(document).ready(function () {
-            $('#show-data').click(function () {
-                // ajax call
-                $.getJSON('/data', function (data) {
-                    $('#firstName, #lastName, #eid, #lat, #lng').empty();
-
-                    $('#eid').append('<div>'+ "Employee ID" +'</div>');
-                    $('#firstName').append('<div> '+ "First Name" + '</div>');
-                    $('#lastName').append('<div> '+ "Last Name" + '</div>');
-                    $('#lat').append('<div> '+ "Latitude" + '</div>');
-                    $('#lng').append('<div> '+ "Longitude" + '</div>');
-                    // getting data and appending to table
-                    var items = data.employees.map(function (item) {
-                        $('#eid').append('<div> '+ item.eid + '</div>');
-                        $('#firstName').append('<div> '+ item.firstName + '</div>');
-                        $('#lastName').append('<div> '+ item.lastName + '</div>');
-                        $('#lat').append('<div> '+ item.lat + '</div>');
-                        $('#lng').append('<div> '+ item.lng + '</div>');
-                        latArr[index] = item.lat;
-                        longArr[index] = item.lng;
-                        index = index + 1;
-                    });
-                    showMap();
-                });
-            });
-        });
-    // calling google map api
-    function showMap() {
-        // showing the center of the map
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: new google.maps.LatLng(latArr[2], longArr[2])
-        });
-
-        var marker, i;
-        // showing other places on map as markers
-        for (i = 0; i < latArr.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(latArr[i], longArr[i]),
-                map: map
-            });
+    <style>
+        #myTable {
+            border: 1px solid;
         }
-    }
+
+        #myTable {
+            width: 450px;
+            height: 200px;
+            background-color: lightgray;
+            position: relative;
+            -webkit-animation: mymove 3s 5; /* Chrome, Safari, Opera */
+            animation: mymove 3s 5;
+        }
+        #myTable {-webkit-animation-timing-function: ease;}
+
+        @-webkit-keyframes mymove {
+            from {left: 0px;}
+            to {left: 500px;}
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+
+        var i = 0;
+        var j = 0;
+        var final = 0;
+        var myKey = 0;
+        var trHTML;
+
+
+        $(document).ready(function() {
+
+            $(".button").click(function(){
+                $("main").animate({left: '250px'});
+
+                var delay=500; // 15 seconds
+                for(var u=0;u<100;u++){
+
+                    delay = delay + 500;
+
+                    setTimeout(function(){
+                        ret();
+                    }, delay);
+
+                }
+
+
+            });
+
+
+            function ret(){
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/data',
+                    dataType:'json',
+                    contentType:'application/json; charset=utf-8',
+
+                    success: function(data) {
+
+                        //console.log('success');
+
+                        $.each(data,function(key,value) {
+
+                            /*
+                             $('#myTable').append(
+                             "<tr><td>" + key + "</td>" +
+                             "<td>" + value.facilityName + "</td>" +
+                             "<td>" + value.stateCode + "</td></tr><br>");
+
+                             */
+
+                            if(i==final && final < 20){
+
+                                trHTML = "<tr><td>" + key + "</td>" +
+                                        "<td>" + value.name + "</td>" +
+                                        "<td>" + value.age + "</td><br>" +
+                                        "<td>" + value.gender + "</td></tr><br>";
+
+                                j = i;
+                                myKey = myKey + 1;
+
+                                var table = document.getElementById("myTable");
+                                var tr = table.insertRow();
+
+                                var td = tr.insertCell();
+                                td.innerHTML =  key;
+
+                                var td2 = tr.insertCell();
+                                td2.innerHTML= value.name;
+
+                                var td3 = tr.insertCell();
+                                td3.innerHTML= value.age;
+
+                                var td4 = tr.insertCell();
+                                td4.innerHTML= value.gender;
+
+                                tr.id = myKey;
+
+                                if(myKey == 20) {
+                                    myKey = 0
+                                }
+
+                            }
+                            else if(i==final && final >= 20){
+
+                                j = i;
+
+                                table = document.getElementById("myTable");
+
+                                tr = table.rows[myKey];
+                                td = tr.insertCell();
+
+                                tr.innerHTML =  key;
+                                td2 = tr.insertCell();
+                                td2.innerHTML = value.name;
+
+
+                                td3 = tr.insertCell();
+                                td3.innerHTML = value.age;
+
+
+                                td4 = tr.insertCell();
+                                td4.innerHTML = value.gender;
+
+
+                                myKey = myKey + 1;
+
+                                if (myKey == 20) {
+                                    myKey = 0
+                                }
+
+                                /*if (i = 99){
+                                 console.log("going");
+                                 $(".myTable").find('table:last').css("color","green")
+                                 //$("#data").find('div:first').slideOut(300, function(){ $(this).remove();});
+                                 }
+                                 */
+                            }
+                            i=i+1;
+
+
+                        });
+
+
+                        final = j+1;
+                        i = 0;
+                        j = 0;
+
+                        //$('#myTable').append(trHTML);
+
+                        // External function calls1
+
+
+                    },
+
+                    error: function (result) {
+                        alert("Error - No data found");
+                    }
+
+                });           // ajax close
+
+
+
+            } // button close
+
+
+        });   // ready function close
+
+
 
     </script>
 </head>
-
 <body>
-<h1>Welcome to <%= title %></h1>
-<button id="show-data">Get JSON data</button>
-<div class="data">
-    <div class="col">
-        <div id="eid"></div>
-    </div>
-    <div class="col">
-        <div id="firstName"></div>
-    </div>
-    <div class="col">
-        <div id="lastName"></div>
-    </div>
-    <div class="col">
-        <div id="lat"></div>
-    </div>
-    <div class="col">
-        <div id="lng"></div>
-    </div>
+<p>Click here</p>
+<input type = "button" value = "click me" class = "button" />
+<br/>
+<br/>
+<br/>
+<div id="data">
+    <table id="myTable" ></table>
 </div>
-<div id="map"></div>
+<br/>
+<br/>
 </body>
 </html>
