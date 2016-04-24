@@ -25,7 +25,7 @@ var userSchema = new mongoose.Schema({
 
 var person = mongoose.model('dataFile', userSchema);
 
-/*fs.readFile('data.json', 'utf8', function (err, data) {
+fs.readFile('data.json', 'utf8', function (err, data) {
     if (err) throw err;
     obj = JSON.parse(data);
 
@@ -48,7 +48,7 @@ var person = mongoose.model('dataFile', userSchema);
     }
     console.log('data inserted into mongodb');
 
-});*/
+});
 var data;
 
 
