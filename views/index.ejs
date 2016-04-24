@@ -5,13 +5,12 @@
 
     <style>
         #myTable {
-            border: 1px solid;
+            border: 1px dotted;
         }
 
         #myTable {
             width: 450px;
             height: 200px;
-            background-color: lightgray;
             position: relative;
             -webkit-animation: mymove 3s 5; /* Chrome, Safari, Opera */
             animation: mymove 3s 5;
@@ -19,8 +18,8 @@
         #myTable {-webkit-animation-timing-function: ease;}
 
         @-webkit-keyframes mymove {
-            from {left: 0px;}
-            to {left: 500px;}
+            from {top: 0px;}
+            to {top: 200px;}
         }
 
     </style>
@@ -38,45 +37,32 @@
 
             $(".button").click(function(){
                 $("main").animate({left: '250px'});
-
-                var delay=500; // 15 seconds
+                //delay of 0.5 secs
+                var delay=500;
                 for(var u=0;u<100;u++){
-
-                    delay = delay + 500;
                     userid = u;
+                    delay = delay + 500;
+
                     setTimeout(function(){
+
                         ret();
                     }, delay);
-
                 }
-
-
             });
 
-
             function ret(){
-
+                //ajax call
                 $.ajax({
                     type: 'GET',
                     url: 'https://cse5335-mxa4346.herokuapp.com/data?userid='+userid,
-                    //url: 'localhost:3000/data?userid='+userid,
+                   // url: 'localhost:3000/data?userid='+userid,
                     dataType:'json',
                     contentType:'application/json; charset=utf-8',
 
                     success: function(data) {
 
-                        //console.log('success');
-
                         $.each(data,function(key,value) {
-
-                            /*
-                             $('#myTable').append(
-                             "<tr><td>" + key + "</td>" +
-                             "<td>" + value.facilityName + "</td>" +
-                             "<td>" + value.stateCode + "</td></tr><br>");
-
-                             */
-
+                            //to show only 20 records at a time
                             if(i==final && final < 20){
 
                                 trHTML = "<tr><td>" + key + "</td>" +
@@ -136,27 +122,14 @@
                                 if (myKey == 20) {
                                     myKey = 0
                                 }
-
-                                /*if (i = 99){
-                                 console.log("going");
-                                 $(".myTable").find('table:last').css("color","green")
-                                 //$("#data").find('div:first').slideOut(300, function(){ $(this).remove();});
-                                 }
-                                 */
                             }
                             i=i+1;
 
-
                         });
-
 
                         final = j+1;
                         i = 0;
                         j = 0;
-
-                        //$('#myTable').append(trHTML);
-
-                        // External function calls1
 
 
                     },
@@ -165,23 +138,13 @@
                         alert("Error - No data found");
                     }
 
-                });           // ajax close
-
-
-
-            } // button close
-
-
-        });   // ready function close
-
-
-
+                });
+            }
+        });
     </script>
 </head>
 <body>
-<p>Click here</p>
-<input type = "button" value = "click me" class = "button" />
-<br/>
+<input type = "button" value = "click here" class = "button" />
 <br/>
 <br/>
 <div id="data">
