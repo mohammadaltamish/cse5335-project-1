@@ -25,7 +25,7 @@ var userSchema = new mongoose.Schema({
 
 var PUser = mongoose.model('Peopledata', userSchema);
 
-fs.readFile('data.json', 'utf8', function (err, data) {
+/*fs.readFile('data.json', 'utf8', function (err, data) {
     if (err) throw err;
     obj = JSON.parse(data);
 
@@ -48,23 +48,25 @@ fs.readFile('data.json', 'utf8', function (err, data) {
     }
     console.log('data inserted');
 
-});
+});*/
 var data;
-PUser.find({}, function (err, userObj) {
-    if (err) {
-        console.log(err);
-    } else if (userObj) {
 
-        data = userObj;
-        console.log('Found:', userObj);
-    }
-});
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+    PUser.find({id:req.query.userid}, function (err, userObj) {
+        if (err) {
+            console.log(err);
+        } else if (userObj) {
+
+            data = userObj;
+            console.log('Found:', userObj);
+        }
+    });
     res.contentType('application/json');
-    var dataJSON = JSON.stringify(data);
-    res.send(dataJSON);
+    //var dataJSON = JSON.stringify(data);
+    //console.log("dataJson: "+dataJSON);
+    res.send(data);
 });
 
 module.exports = router;

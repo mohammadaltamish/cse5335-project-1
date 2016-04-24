@@ -32,7 +32,7 @@
         var final = 0;
         var myKey = 0;
         var trHTML;
-
+        var userid=0;
 
         $(document).ready(function() {
 
@@ -43,7 +43,7 @@
                 for(var u=0;u<100;u++){
 
                     delay = delay + 500;
-
+                    userid = u;
                     setTimeout(function(){
                         ret();
                     }, delay);
@@ -58,7 +58,8 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: 'https://cse5335-mxa4346.herokuapp.com/data',
+                   // url: 'https://cse5335-mxa4346.herokuapp.com/data?userid='+userid,
+                    url: 'localhost:3000/data?userid='+userid,
                     dataType:'json',
                     contentType:'application/json; charset=utf-8',
 
