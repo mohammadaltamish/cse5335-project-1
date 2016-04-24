@@ -28,10 +28,10 @@
 
         var i = 0;
         var j = 0;
-        var final = 0;
-        var myKey = 0;
-        var trHTML;
-        var userid=0;
+        var lastRow = 0;
+        var k = 0;
+        var trTag;
+        var u=0;
 
         $(document).ready(function() {
 
@@ -39,23 +39,23 @@
                 $("main").animate({left: '250px'});
                 //delay of 0.5 secs
                 var delay=500;
-                for(var u=0;u<100;u++){
-                    userid = u;
+                for(u=0;u<100;u++){
                     delay = delay + 500;
 
                     setTimeout(function(){
-
-                        ret();
+                        console.log("u:"+u);
+                        getData(u);
                     }, delay);
                 }
             });
 
-            function ret(){
+            function getData(u){
                 //ajax call
                 $.ajax({
                     type: 'GET',
-                    url: 'https://cse5335-mxa4346.herokuapp.com/data?userid='+userid,
-                   // url: 'localhost:3000/data?userid='+userid,
+                    url: 'https://cse5335-mxa4346.herokuapp.com/data?userId='+u,
+
+                   //url: 'localhost:3000/data?userId='+u,
                     dataType:'json',
                     contentType:'application/json; charset=utf-8',
 
@@ -63,15 +63,15 @@
 
                         $.each(data,function(key,value) {
                             //to show only 20 records at a time
-                            if(i==final && final < 20){
+                            if(i==lastRow && lastRow < 20){
 
-                                trHTML = "<tr><td>" + key + "</td>" +
+                                trTag = "<tr><td>" + key + "</td>" +
                                         "<td>" + value.name + "</td>" +
                                         "<td>" + value.age + "</td><br>" +
                                         "<td>" + value.gender + "</td></tr><br>";
 
                                 j = i;
-                                myKey = myKey + 1;
+                                k = k + 1;
 
                                 var table = document.getElementById("myTable");
                                 var tr = table.insertRow();
@@ -88,20 +88,20 @@
                                 var td4 = tr.insertCell();
                                 td4.innerHTML= value.gender;
 
-                                tr.id = myKey;
+                                tr.id = k;
 
-                                if(myKey == 20) {
-                                    myKey = 0
+                                if(k == 20) {
+                                    k = 0
                                 }
 
                             }
-                            else if(i==final && final >= 20){
+                            else if(i==lastRow && lastRow >= 20){
 
                                 j = i;
 
                                 table = document.getElementById("myTable");
 
-                                tr = table.rows[myKey];
+                                tr = table.rows[k];
                                 td = tr.insertCell();
 
                                 tr.innerHTML =  key;
@@ -117,17 +117,17 @@
                                 td4.innerHTML = value.gender;
 
 
-                                myKey = myKey + 1;
+                                k = k + 1;
 
-                                if (myKey == 20) {
-                                    myKey = 0
+                                if (k == 20) {
+                                    k = 0
                                 }
                             }
                             i=i+1;
 
                         });
 
-                        final = j+1;
+                        lastRow = j+1;
                         i = 0;
                         j = 0;
 

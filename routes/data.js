@@ -10,9 +10,9 @@ var uristring =
 
 mongoose.connect(uristring, function (err, res) {
     if (err) {
-        console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+        console.log ('Error connecting : ' + uristring + '. ' + err);
     } else {
-        console.log ('Succeeded connected to: ' + uristring);
+        console.log ('Success connecting : ' + uristring);
     }
 });
 
@@ -23,7 +23,7 @@ var userSchema = new mongoose.Schema({
     gender:String
 });
 
-var PUser = mongoose.model('Peopledata', userSchema);
+var person = mongoose.model('dataFile', userSchema);
 
 /*fs.readFile('data.json', 'utf8', function (err, data) {
     if (err) throw err;
@@ -31,7 +31,7 @@ var PUser = mongoose.model('Peopledata', userSchema);
 
     for(var i = 0; i <=99; i++) {
 
-        var myData = new PUser ({
+        var myData = new person ({
             id:obj[i].id,
             name:obj[i].name,
             age:obj[i].age,
@@ -46,7 +46,7 @@ var PUser = mongoose.model('Peopledata', userSchema);
 
         });
     }
-    console.log('data inserted');
+    console.log('data inserted into mongodb');
 
 });*/
 var data;
@@ -54,7 +54,7 @@ var data;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    PUser.find({id:req.query.userid}, function (err, userObj) {
+    person.find({id:req.query.userId}, function (err, userObj) {
         if (err) {
             console.log(err);
         } else if (userObj) {
@@ -64,8 +64,8 @@ router.get('/', function(req, res, next) {
         }
     });
     res.contentType('application/json');
-    //var dataJSON = JSON.stringify(data);
-    //console.log("dataJson: "+dataJSON);
+    //var jsonData = JSON.stringify(data);
+    //console.log("jsonData: "+jsonData);
     res.send(data);
 });
 
