@@ -4,138 +4,59 @@
     <title><%= title %></title>
 
     <style>
-        #myTable {
-            border: 1px dotted;
+        .data{
+            display:table;
+            width:auto;
+            background-color:#eee;
+            border:1px solid  #666666;
         }
-
-        #myTable {
-            width: 450px;
-            height: 200px;
-            position: relative;
-            -webkit-animation: mymove 3s 5; /* Chrome, Safari, Opera */
-            animation: mymove 3s 5;
+        .col > div{
+            display:table-row;
+            clear:both;
         }
-        #myTable {-webkit-animation-timing-function: ease;}
-
-        @-webkit-keyframes mymove {
-            from {top: 0px;}
-            to {top: 200px;}
+        .col{
+            float:left;
+            display:table-column;
+            width:150px;
+            border:1px solid #666666;
         }
-
     </style>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript">
-
-        var i = 0;
-        var j = 0;
-        var lastRow = 0;
-        var k = 0;
-        var trTag;
-        var u=0;
-
         $(document).ready(function() {
 
             $(".button").click(function(){
-                $("main").animate({left: '250px'});
                 //delay of 0.5 secs
                 var delay=500;
-                for(u=0;u<100;u++){
-                    delay = delay + 500;
-
+                for(var u=0;u<=99;u++){
+                   delay = delay + 500;
                     setTimeout(function(){
                         console.log("u:  "+u);
-                        getData(u);
                     }, delay);
+
+                    getData(u);
                 }
             });
 
             function getData(u){
-                //ajax call
+
                 $.ajax({
                     type: 'GET',
                     url: 'https://cse5335-mxa4346.herokuapp.com/data?userId='+u,
-
-                   //url: 'localhost:3000/data?userId='+u,
+                   // url: 'http://localhost:3000/data?userId='+u,
                     dataType:'json',
                     contentType:'application/json; charset=utf-8',
-
                     success: function(data) {
-
                         $.each(data,function(key,value) {
                             //to show only 20 records at a time
-                            if(i==lastRow && lastRow < 20){
-
-                                trTag = "<tr><td>" + key + "</td>" +
-                                        "<td>" + value.name + "</td>" +
-                                        "<td>" + value.age + "</td><br>" +
-                                        "<td>" + value.gender + "</td></tr><br>";
-
-                                j = i;
-                                k = k + 1;
-
-                                var table = document.getElementById("myTable");
-                                var tr = table.insertRow();
-
-                                var td = tr.insertCell();
-                                td.innerHTML =  key;
-
-                                var td2 = tr.insertCell();
-                                td2.innerHTML= value.name;
-
-                                var td3 = tr.insertCell();
-                                td3.innerHTML= value.age;
-
-                                var td4 = tr.insertCell();
-                                td4.innerHTML= value.gender;
-
-                                tr.id = k;
-
-                                if(k == 20) {
-                                    k = 0
-                                }
-
-                            }
-                            else if(i==lastRow && lastRow >= 20){
-
-                                j = i;
-
-                                table = document.getElementById("myTable");
-
-                                tr = table.rows[k];
-                                td = tr.insertCell();
-
-                                tr.innerHTML =  key;
-                                td2 = tr.insertCell();
-                                td2.innerHTML = value.name;
-
-
-                                td3 = tr.insertCell();
-                                td3.innerHTML = value.age;
-
-
-                                td4 = tr.insertCell();
-                                td4.innerHTML = value.gender;
-
-
-                                k = k + 1;
-
-                                if (k == 20) {
-                                    k = 0
-                                }
-                            }
-                            i=i+1;
-
+                            $('#id').append('<div> '+ value.id + '</div>');
+                            $('#name').append('<div> '+ value.name + '</div>');
+                            $('#age').append('<div> '+ value.age + '</div>');
+                            $('#gender').append('<div> '+ value.gender + '</div>');
                         });
-
-                        lastRow = j+1;
-                        i = 0;
-                        j = 0;
-
-
                     },
-
                     error: function (result) {
-                        alert("Error - No data found");
+                        alert("Error - No data!");
                     }
 
                 });
@@ -144,13 +65,20 @@
     </script>
 </head>
 <body>
-<input type = "button" value = "click here" class = "button" />
-<br/>
-<br/>
-<div id="data">
-    <table id="myTable" ></table>
+<input type = "button" value = "Click Me" class = "button" />
+<div class="data">
+    <div class="col">
+        <div id="id"></div>
+    </div>
+    <div class="col">
+        <div id="name"></div>
+    </div>
+    <div class="col">
+        <div id="age"></div>
+    </div>
+    <div class="col">
+        <div id="gender"></div>
+    </div>
 </div>
-<br/>
-<br/>
 </body>
 </html>

@@ -40,7 +40,7 @@ fs.readFile('data.json', 'utf8', function (err, data) {
 
         myData.save(function (err) {
             if (err) {
-                console.log ('Error on save 1 !');
+                console.log ('Error while saving!!');
                 console.log(err);
             }
 
@@ -49,24 +49,26 @@ fs.readFile('data.json', 'utf8', function (err, data) {
     console.log('data inserted into mongodb');
 
 });
+
+
 var data;
 
 
-/* GET users listing. */
+/* Get people data */
 router.get('/', function(req, res, next) {
     person.find({id:req.query.userId}, function (err, userObj) {
         if (err) {
             console.log(err);
         } else if (userObj) {
-
             data = userObj;
-            console.log('Found:', userObj);
+            res.contentType('application/json');
+            var jsonData = JSON.stringify(data);
+            console.log("data: "+data);
+            res.send(data);
+           // console.log('Found:', userObj);
         }
     });
-    res.contentType('application/json');
-    //var jsonData = JSON.stringify(data);
-    //console.log("jsonData: "+jsonData);
-    res.send(data);
+
 });
 
 module.exports = router;
