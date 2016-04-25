@@ -2,25 +2,7 @@
 <html>
 <head>
     <title><%= title %></title>
-
-    <style>
-        .data{
-            display:table;
-            width:auto;
-            background-color:#eee;
-            border:1px solid  #666666;
-        }
-        .col > div{
-            display:table-row;
-            clear:both;
-        }
-        .col{
-            float:left;
-            display:table-column;
-            width:150px;
-            border:1px solid #666666;
-        }
-    </style>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -28,44 +10,41 @@
             $(".button").click(function(){
                 //delay of 0.5 secs
                 var delay=500;
+                //100 ajax call at 0.5 sec delay
                 for(var u=0;u<=99;u++){
-                   delay = delay + 500;
+                    delay = delay + 500;
                     setTimeout(function(){
-                        console.log("u:  "+u);
                     }, delay);
-
                     getData(u);
                 }
             });
 
             function getData(u){
-
                 $.ajax({
                     type: 'GET',
                     url: 'https://cse5335-mxa4346.herokuapp.com/data?userId='+u,
-                   // url: 'http://localhost:3000/data?userId='+u,
+                    //url: 'http://localhost:3000/data?userId='+u,
                     dataType:'json',
                     contentType:'application/json; charset=utf-8',
                     success: function(data) {
                         $.each(data,function(key,value) {
-                            //to show only 20 records at a time
-                            $('#id').append('<div> '+ value.id + '</div>');
-                            $('#name').append('<div> '+ value.name + '</div>');
-                            $('#age').append('<div> '+ value.age + '</div>');
-                            $('#gender').append('<div> '+ value.gender + '</div>');
+                            $('#id').append('<div> '+ value.id + '</div>').show("slide", { direction: "left" }, 1000);
+                            $('#name').append('<div> '+ value.name + '</div>').show("slide", { direction: "left" }, 1000);
+                            $('#age').append('<div> '+ value.age + '</div>').show("slide", { direction: "left" }, 1000);
+                            $('#gender').append('<div> '+ value.gender + '</div>').show("slide", { direction: "left" }, 1000);
                         });
                     },
                     error: function (result) {
                         alert("Error - No data!");
                     }
-
                 });
             }
         });
     </script>
 </head>
 <body>
-<input type = "button" value = "Click Me" class = "button" />
+<h1>Welcome to <%= title %></h1>
+<input type = "button" value = "Get Data" class = "button" />
 <div class="data">
     <div class="col">
         <div id="id"></div>

@@ -6,3 +6,33 @@ body {
 a {
   color: #00B7FF;
 }
+.data{
+  display:table;
+  width:auto;
+  background-color:#eee;
+  border:1px solid  #666666;
+}
+.col > div{
+  clear:both;
+  position: relative;
+  -webkit-animation: mymove 8s ; /* Chrome, Safari, Opera */
+  animation: mymove 8s ;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+}
+.col{
+  float:left;
+  width:150px;
+  border:1px solid #666666;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+  from {left: 300px;}
+  to {left: 0px;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+  from {left: 300px;}
+  to {left: 0px;}
+}
